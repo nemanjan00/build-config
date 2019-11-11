@@ -35,7 +35,11 @@ yes | repo init -u https://github.com/lineageos/android.git -b ${VERSION}
 echo "Resetting build tree"
 repo forall -vc "git reset --hard" > /tmp/android-reset.log 2>&1
 echo "Syncing"
-cp .repo/manifest.xml .repo/manifest.xml.bkp
+
+if [ -f .repo/manifest.xml.bkp ]; then
+    cp .repo/manifest.xml .repo/manifest.xml.bkp
+fi
+
 sed '$i<project name="The-Muppets/proprietary_vendor_xiaomi" path="vendor/xiaomi" remote="gitlab"/>' .repo/manifest.xml.bkp > .repo/manifest.xml
 repo sync -j32 -d --force-sync > /tmp/android-sync.log 2>&1
 . build/envsetup.sh
