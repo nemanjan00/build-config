@@ -36,7 +36,7 @@ echo "Resetting build tree"
 repo forall -vc "git reset --hard" > /tmp/android-reset.log 2>&1
 echo "Syncing"
 
-if [ -f .repo/manifest.xml.bkp ]; then
+if [ ! -f .repo/manifest.xml.bkp ]; then
     cp .repo/manifest.xml .repo/manifest.xml.bkp
 fi
 
