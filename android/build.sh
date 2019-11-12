@@ -56,7 +56,7 @@ if [ "$RELEASE_TYPE" '==' "experimental" ]; then
   fi
 fi
 echo "--- Building"
-mka otatools-package target-files-package dist | /tmp/android-build.log | cut -d" " -f2 | awk '{printf $1"                                        \r"}'
+mka otatools-package target-files-package dist | tee /tmp/android-build.log | awk '{printf $1$2" "$3"                                        \r"; fflush()}'
 
 echo "--- Uploading"
 ssh jenkins@blob.lineageos.org mkdir -p /home/jenkins/incoming/${DEVICE}/${BUILD_UUID}/
